@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+  Calculadora Salarial
+{% endblock %}
+
+{% block contenido %}
+<br>
+  <div class="card border-0 shadow">
+    <div class="card-header">Calculadora Salarial</div>
+
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Introduce su ingreso bruto</label>
+              <input type="number" name="sueldo" id="sueldo" class="form-control" value="{{ sueldo }}" />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-group">Ingrese el tiempo</label>
+              <select name="tiempo" id="tiempo" class="form-control">
+                <option value="1">Año</option>
+                <option value="2">Mes</option>
+                <option value="3">Quincenal</option>
+                <option value="4">Semanal</option>
+                <option value="5">Dia</option>
+                <option value="6">Hora</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <label class="form-labbel mb-4"></label>
+              <button type="submit" class="btn btn-success w-100">Calcular</button>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <h6>Retencion</h6>
+            <table class="table">
+              <tr>
+                <th>Ingresos totales</th>
+                <td class="text-end py-0">
+                  <p class="lead" id="ingresoTotal"></p>
+                </td>
+              </tr>
+              <tr>
+                <th>Pension Obligatorio de Salud</th>
+                <td class="text-end py-0">
+                  <p class="lead" id="pensionSalud"></p>
+                </td>
+              </tr>
+              <tr>
+                <th>Pension Obligatoria</th>
+                <td class="text-end py-0">
+                  <p class="lead" id="pensionObligatoria"></p>
+                </td>
+              </tr>
+              <tr>
+                <th>Auxiliar de Transporte</th>
+                <td class="text-end py-0">
+                  <p class="lead" id="auxilioTransporte"></p>
+                </td>
+              </tr>
+              <tr>
+                <th>Pago Neto</th>
+                <td class="text-end py-0">
+                  <p class="lead" id="pagoNeto"></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let ingresos = parseFloat('{{ingresoTotal}}');
+    let ingresoss = numeral (ingresos);
+    $('#ingresoTotal').text(ingresoss.format('$0,0.00'));
+    
+    let pension = parseFloat('{{pensionSalud}}');
+    let pensionn = numeral (pension);
+    $('#pensionSalud').text(pensionn.format('$0,0.00'));
+    
+    let obligatoria = parseFloat('{{pensionObligatoria}}');
+    let obligatoriaa = numeral (obligatoria);
+    $('#pensionObligatoria').text(obligatoriaa.format('$0,0.00'));
+    
+    let auxiliar = parseFloat('{{auxilioTransporte}}');
+    let auxiliarr = numeral (auxiliar);
+    $('#auxilioTransporte').text(auxiliarr.format('$0,0.00'));
+    
+    let neto = parseFloat('{{pagoNeto}}');
+    let netoo = numeral (neto);
+    $('#pagoNeto').text(netoo.format('$0,0.00'));
+    
+    $('#tiempo option[value="{{tiempo}}"]').attr('selected', 'selected')
+  </script>
+{% endblock %}

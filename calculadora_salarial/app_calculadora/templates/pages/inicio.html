@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+<br>
+<div class="p-5 bg-light">
+    <div class="container">
+        <h1 class="display-3"> CALCULADORA SALARIAL</h1>
+        <p>Calcula tu salario neto despues de las deducciones e impuestos</p>
+
+        <p>
+            <a class="btn btn-dark btn-lg" href="{% url 'calculadora' %}" role="button">Calcular</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
